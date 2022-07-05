@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_whatsapp_clone/Pages/ChatPage.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -13,7 +14,7 @@ class _HomeScreenState extends State<HomeScreen>
 
   void initState() {
     super.initState();
-    _controller = TabController(length: 4, vsync: this, initialIndex: 0);
+    _controller = TabController(length: 4, vsync: this, initialIndex: 1);
   }
 
   @override
@@ -23,9 +24,38 @@ class _HomeScreenState extends State<HomeScreen>
         title: Text("Whatsapp clone"),
         actions: [
           IconButton(onPressed: () {}, icon: Icon(Icons.search)),
-          IconButton(onPressed: () {}, icon: Icon(Icons.more_vert))
+          PopupMenuButton<String>(
+            onSelected: (value) {
+              print(value);
+            },
+            itemBuilder: (context) {
+              return [
+                PopupMenuItem(
+                  child: Text("New group"),
+                  value: "New group",
+                ),
+                PopupMenuItem(
+                  child: Text("New broadcast"),
+                  value: "New broadcast",
+                ),
+                PopupMenuItem(
+                  child: Text("Whatsapp web"),
+                  value: "Whatsapp web",
+                ),
+                PopupMenuItem(
+                  child: Text("Starred message"),
+                  value: "Starred message",
+                ),
+                PopupMenuItem(
+                  child: Text("Settings"),
+                  value: "Settings",
+                ),
+              ];
+            },
+          )
         ],
         bottom: TabBar(
+          indicatorColor: Colors.white,
           controller: _controller,
           tabs: [
             Tab(icon: Icon(Icons.camera_alt)),
@@ -44,7 +74,7 @@ class _HomeScreenState extends State<HomeScreen>
       //--------------------------BODY------------------
       body: TabBarView(controller: _controller, children: [
         Text("Camera"),
-        Text("Chats"),
+        ChatPage(),
         Text("status"),
         Text("calls"),
       ]),
