@@ -1,24 +1,32 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_whatsapp_clone/Model/ChatModel.dart';
+import 'package:flutter_whatsapp_clone/Screens/IndividualChat.dart';
 
 class CustomChatCard extends StatelessWidget {
-  const CustomChatCard({Key? key}) : super(key: key);
+  const CustomChatCard({Key? key, required this.chatModel}) : super(key: key);
+
+  final ChatModel chatModel;
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () {},
+      onTap: () {
+        Navigator.push(context, MaterialPageRoute(builder: ((context) {
+          return IndividualChatPage();
+        })));
+      },
       child: ListTile(
         leading: CircleAvatar(
             radius: 30,
             child: Icon(
-              Icons.groups,
+              chatModel.isGroup ? Icons.groups : Icons.person,
               color: Colors.white,
               size: 37.0,
             ),
             backgroundColor: Colors.blueGrey),
-        trailing: Text("10:00 PM"),
+        trailing: Text(chatModel.time),
         title: Text(
-          "Muhammad Bilal",
+          chatModel.name,
           style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
         ),
         subtitle: Row(children: [
@@ -27,7 +35,7 @@ class CustomChatCard extends StatelessWidget {
             width: 3,
           ),
           Text(
-            "Hi I am Bilal",
+            chatModel.currentMessage,
             style: TextStyle(fontSize: 13),
           )
         ]),
