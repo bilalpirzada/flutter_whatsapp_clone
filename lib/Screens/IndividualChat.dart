@@ -31,6 +31,21 @@ class _IndividualChatPageState extends State<IndividualChatPage> {
     });
   }
 
+  handleEmojiButton() {
+    setState(() {
+      _focusNode.unfocus();
+      _focusNode.canRequestFocus = false;
+      _showEmoji = !_showEmoji;
+    });
+  }
+
+  handleAttachFileButton() {
+    showModalBottomSheet(
+        backgroundColor: Colors.transparent,
+        context: context,
+        builder: (builder) => bottomSheet());
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -141,11 +156,7 @@ class _IndividualChatPageState extends State<IndividualChatPage> {
                                   border: InputBorder.none,
                                   prefixIcon: IconButton(
                                       onPressed: () {
-                                        setState(() {
-                                          _focusNode.unfocus();
-                                          _focusNode.canRequestFocus = false;
-                                          _showEmoji = !_showEmoji;
-                                        });
+                                        handleEmojiButton();
                                       },
                                       icon: Icon(Icons.emoji_emotions)),
                                   hintText: "Type a message...",
@@ -153,7 +164,9 @@ class _IndividualChatPageState extends State<IndividualChatPage> {
                                       mainAxisSize: MainAxisSize.min,
                                       children: [
                                         IconButton(
-                                            onPressed: () {},
+                                            onPressed: () {
+                                              handleAttachFileButton();
+                                            },
                                             icon: Icon(Icons.attach_file)),
                                         IconButton(
                                           onPressed: () {},
@@ -210,6 +223,76 @@ class _IndividualChatPageState extends State<IndividualChatPage> {
           _controller.text = _controller.text + category.emoji;
         },
       ),
+    );
+  }
+
+  Widget bottomSheet() {
+    return Container(
+        height: 278,
+        width: MediaQuery.of(context).size.width,
+        child: Card(
+          margin: EdgeInsets.all(18),
+          child: Padding(
+            padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 10),
+            child: Column(children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  iconCreation(
+                      Icons.insert_drive_file, Colors.indigo, "Document"),
+                  SizedBox(
+                    width: 30,
+                  ),
+                  iconCreation(Icons.camera_alt, Colors.pink, "Camera"),
+                  SizedBox(
+                    width: 30,
+                  ),
+                  iconCreation(Icons.insert_photo, Colors.purple, "Gallery"),
+                ],
+              ),
+              SizedBox(
+                height: 30,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  iconCreation(Icons.headset, Colors.orange, "Audio"),
+                  SizedBox(
+                    width: 30,
+                  ),
+                  iconCreation(Icons.location_pin, Colors.teal, "Location"),
+                  SizedBox(
+                    width: 30,
+                  ),
+                  iconCreation(Icons.person, Colors.blue, "Contact"),
+                ],
+              ),
+            ]),
+          ),
+        ));
+  }
+
+  Widget iconCreation(IconData icon, Color color, String name) {
+    return InkWell(
+      onTap: () {},
+      child: Column(children: [
+        CircleAvatar(
+          backgroundColor: color,
+          child: Icon(
+            icon,
+            size: 29,
+            color: Colors.white,
+          ),
+          radius: 30,
+        ),
+        SizedBox(
+          height: 5,
+        ),
+        Text(
+          name,
+          style: TextStyle(fontSize: 12),
+        ),
+      ]),
     );
   }
 }
