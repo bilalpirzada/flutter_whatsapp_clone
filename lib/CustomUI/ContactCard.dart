@@ -24,21 +24,21 @@ class ContactCard extends StatelessWidget {
               ),
               backgroundColor: Colors.blueGrey[200],
             ),
-            // contact.select
-            //     ? Positioned(
-            //         bottom: 4,
-            //         right: 5,
-            //         child: CircleAvatar(
-            //           backgroundColor: Colors.teal,
-            //           radius: 11,
-            //           child: Icon(
-            //             Icons.check,
-            //             color: Colors.white,
-            //             size: 18,
-            //           ),
-            //         ),
-            //       )
-            //     : Container(),
+            contact.select
+                ? Positioned(
+                    bottom: 4,
+                    right: 5,
+                    child: CircleAvatar(
+                      backgroundColor: Colors.teal,
+                      radius: 11,
+                      child: Icon(
+                        Icons.check,
+                        color: Colors.white,
+                        size: 18,
+                      ),
+                    ),
+                  )
+                : Container(),
           ],
         ),
       ),

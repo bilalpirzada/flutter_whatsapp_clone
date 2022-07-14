@@ -18,5 +18,6 @@ class ChatModel {
 class ContactModel {
   String name;
   String status;
-  ContactModel({required this.name, required this.status});
+  bool select = false;
+  ContactModel({required this.name, required this.status, required this.select});
 }

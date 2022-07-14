@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../CustomUI/ButtonCard.dart';
 import '../CustomUI/ContactCard.dart';
 import '../Model/ChatModel.dart';
+import 'CreateGroup.dart';
 
 class SelectContact extends StatefulWidget {
   @override
@@ -16,17 +17,58 @@ class _SelectContactState extends State<SelectContact> {
       ContactModel(
         name: "Abdullah",
         status: "A full stack developer",
+        select: false,
       ),
-      ContactModel(name: "Bilal", status: "Flutter Developer..........."),
-      ContactModel(name: "China Wala", status: "Web developer..."),
-      ContactModel(name: "Dholu", status: "App developer...."),
-      ContactModel(name: "Emran", status: "Raect developer.."),
-      ContactModel(name: "Farukh", status: "Full Stack Web"),
-      ContactModel(name: "Ghias", status: "Example work"),
-      ContactModel(name: "Haider", status: "Sharing is caring"),
-      ContactModel(name: "Inam", status: "....."),
-      ContactModel(name: "Kareem", status: "Love you Mom Dad"),
-      ContactModel(name: "Lahore wala", status: "I find the bugs"),
+      ContactModel(
+        name: "Bilal",
+        status: "Flutter Developer...........",
+        select: false,
+      ),
+      ContactModel(
+        name: "China Wala",
+        status: "Web developer...",
+        select: false,
+      ),
+      ContactModel(
+        name: "Dholu",
+        status: "App developer....",
+        select: false,
+      ),
+      ContactModel(
+        name: "Emran",
+        status: "Raect developer..",
+        select: false,
+      ),
+      ContactModel(
+        name: "Farukh",
+        status: "Full Stack Web",
+        select: false,
+      ),
+      ContactModel(
+        name: "Ghias",
+        status: "Example work",
+        select: false,
+      ),
+      ContactModel(
+        name: "Haider",
+        status: "Sharing is caring, ",
+        select: false,
+      ),
+      ContactModel(
+        name: "Inam",
+        status: ".....",
+        select: false,
+      ),
+      ContactModel(
+        name: "Kareem",
+        status: "Love you Mom Dad",
+        select: false,
+      ),
+      ContactModel(
+        name: "Lahore wala",
+        status: "I find the bugs",
+        select: false,
+      ),
     ];
 
     return Scaffold(
@@ -91,8 +133,8 @@ class _SelectContactState extends State<SelectContact> {
               if (index == 0) {
                 return InkWell(
                   onTap: () {
-                    // Navigator.push(context,
-                    // MaterialPageRoute(builder: (builder) => CreateGroup()));
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (builder) => CreateGroup()));
                   },
                   child: ButtonCard(
                     icon: Icons.group,
