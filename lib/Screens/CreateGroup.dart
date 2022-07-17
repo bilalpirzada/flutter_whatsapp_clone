@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_whatsapp_clone/CustomUI/ContactAvatar.dart';
 
 import '../CustomUI/ButtonCard.dart';
 import '../CustomUI/ContactCard.dart';
@@ -102,27 +103,69 @@ class _CreateGroupState extends State<CreateGroup> {
                 onPressed: () {}),
           ],
         ),
-        body: ListView.builder(
-            itemCount: contacts.length,
-            itemBuilder: (context, index) {
-              return InkWell(
-                onTap: () {
-                  if (contacts[index].select == false) {
-                    setState(() {
-                      contacts[index].select = true;
-                      groups.add(contacts[index]);
-                    });
-                  } else {
-                    setState(() {
-                      contacts[index].select = false;
-                      groups.remove(contacts[index]);
-                    });
+        body: Stack(
+          children: [
+            ListView.builder(
+                itemCount: contacts.length+1,
+                itemBuilder: (context, index) {
+                  if (index == 0) {
+                    return Container(
+                      height: groups.length > 0 ? 90 : 10,
+                    );
                   }
-                },
-                child: ContactCard(
-                  contact: contacts[index],
-                ),
-              );
-            }));
+                  return InkWell(
+                    onTap: () {
+                      if (contacts[index - 1].select == false) {
+                        setState(() {
+                          contacts[index - 1].select = true;
+                          groups.add(contacts[index]);
+                        });
+                      } else {
+                        setState(() {
+                          contacts[index - 1].select = false;
+                          groups.remove(contacts[index]);
+                        });
+                      }
+                    },
+                    child: ContactCard(
+                      contact: contacts[index - 1],
+                    ),
+                  );
+                }),
+            groups.length > 0
+                ? Column(
+                    children: [
+                      Container(
+                        height: 75,
+                        color: Colors.white,
+                        child: ListView.builder(
+                            scrollDirection: Axis.horizontal,
+                            itemCount: contacts.length,
+                            itemBuilder: ((context, index) {
+                              if (contacts[index].select == true) {
+                                return InkWell(
+                                  onTap: () {
+                                    setState(() {
+                                      groups.remove(contacts[index]);
+                                      contacts[index].select = false;
+                                    });
+                                  },
+                                  child: ContactAvatar(
+                                    contact: contacts[index],
+                                  ),
+                                );
+                              } else {
+                                return Container();
+                              }
+                            })),
+                      ),
+                      Divider(
+                        thickness: 1,
+                      )
+                    ],
+                  )
+                : Container(),
+          ],
+        ));
   }
 }
